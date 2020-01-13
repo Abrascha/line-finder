@@ -5,7 +5,7 @@ from IPython.display import HTML
 import findline
 
 def process_image(image):
-    # NOTE: The output you return should be a color image (3 channel) for processing video below
+    # NOTE: The output you return should be a color image (3 channel) for processing video below  print(len(lines))
     # TODO: put your pipeline here,
     # you should return the final output (image where lines are drawn on lanes)
     result = findline.findline(image)
