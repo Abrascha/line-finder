@@ -1,8 +1,9 @@
 test_videos
 __pycache__
-example
+examples
 test_videos_output
 P1.ipynb
-set_get.sh
+set_git.sh
 writeup_template.md
-tset_images
+test_images
+LICENSE
