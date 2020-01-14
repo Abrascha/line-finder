@@ -14,7 +14,6 @@ class line_finder:
         self.fit_left_avg_old = np.array([-1.0, 700])
         self.fit_right_avg_old = np.array([1.0, 0])
 
-
     def fit_coordinate(self, image, fit_parameters):
         slope, intercept = fit_parameters
         y1 = image.shape[0]
@@ -22,7 +21,6 @@ class line_finder:
         x1 = int((y1-intercept)//slope)
         x2 = int((y2-intercept)//slope)
         return np.array([x1, y1, x2, y2])
-
 
     def average_slope_intercept(self, image, lines):
         fit_right = []
@@ -61,7 +59,6 @@ class line_finder:
         right_line = self.fit_coordinate(image, fit_right_avg)
         return np.array([left_line, right_line])
 
-
     def traffic_line(self, image_input):
         # Read in and grayscale the image
         # image = cv2.convertScaleAbs(image_input,alpha=255)
@@ -75,7 +72,7 @@ class line_finder:
         high_threshold = 180  # 180
 
         edges = cv2.Canny(blur_gray, low_threshold,
-                        high_threshold, L2gradient=True)
+                          high_threshold, L2gradient=True)
         mask = np.zeros_like(edges)
         ignore_color = 255
         imshape = image.shape
@@ -86,9 +83,9 @@ class line_finder:
         #         y_high = y
         #         break
         vertices = np.array([[(0+int(imshape[1]*0.1), int(imshape[0])),
-                            (imshape[1]/2 - imshape[1]/32, y_high),
-                            (imshape[1]/2 + imshape[1]/32, y_high),
-                            (imshape[1]-int(imshape[1]*0.1), int(imshape[0]))]], dtype=np.int32)
+                              (imshape[1]/2 - imshape[1]/32, y_high),
+                              (imshape[1]/2 + imshape[1]/32, y_high),
+                              (imshape[1]-int(imshape[1]*0.1), int(imshape[0]))]], dtype=np.int32)
         cv2.fillPoly(mask, vertices, ignore_color)
         masked_edges = cv2.bitwise_and(edges, mask)
 
@@ -114,9 +111,10 @@ class line_finder:
         color_edges = np.dstack((edges, edges, edges))
 
         # Draw the lines on the edge image
-        # image_output = cv2.addWeighted(image, 0.8, line_image, 1, 0) # color image
         image_output = cv2.addWeighted(
-            color_edges, 0.8, line_image, 1, 0)  # no color image
+            image, 0.8, line_image, 1, 0)  # color image
+        # image_output = cv2.addWeighted(
+        #     color_edges, 0.8, line_image, 1, 0)  # no color image
         return image_output
 
 
