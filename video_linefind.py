@@ -2,13 +2,13 @@
 import os
 from moviepy.editor import VideoFileClip
 from IPython.display import HTML
-import findline
+from findline import line_finder
 
 def process_image(image):
     # NOTE: The output you return should be a color image (3 channel) for processing video below  print(len(lines))
     # TODO: put your pipeline here,
     # you should return the final output (image where lines are drawn on lanes)
-    result = findline.findline(image)
+    result = line_finder().traffic_line(image)
     return result   
 
 if __name__ == "__main__":
