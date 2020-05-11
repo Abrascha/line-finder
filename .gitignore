@@ -1,9 +1,5 @@
-test_videos
 __pycache__
 examples
-test_videos_output
-P1.ipynb
 set_git.sh
 writeup_template.md
-test_images
-LICENSE
+.vscode

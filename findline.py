@@ -1,19 +1,10 @@
 import os
-# importing some useful packages
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy as np
-# import improcess
 import cv2
-import math
-
 
 class line_finder:
     def __init__(self):
-        ## global variante
-        # self.fit_left_avg_old = np.array([-1.0, 700])
-        # self.fit_right_avg_old = np.array([1.0, 0])
-
         self.fit_left_avg_old = np.array([])
         self.fit_right_avg_old = np.array([])
 
@@ -124,9 +115,9 @@ class line_finder:
         # ployfit() -- slope,b -- fit_right(+),fit_left(-) -- find points in vertices -- cv2.line
         fit_lines = self.average_slope_intercept(image, lines)
 
-        line_image = self.draw_lines(fit_lines, line_image, (255,0,0), 10) # traffic line
-        # line_image = self.draw_lines([x[0] for x in lines], line_image,(0,255,0), 3) # Houghline
-        # line_image = self.draw_lines((vertices.reshape(2,4)[1],vertices.reshape(2,4)[0]),line_image,(255,255,0), 3) # vertices
+        line_image = self.draw_lines(fit_lines, line_image, (255,0,0), 10) # show traffic line
+        # line_image = self.draw_lines([x[0] for x in lines], line_image,(0,255,0), 3) # show Houghline
+        # line_image = self.draw_lines((vertices.reshape(2,4)[1],vertices.reshape(2,4)[0]),line_image,(255,255,0), 3) # show vertices
 
         # Create a "color" binary image to combine with line image
         color_edges = np.dstack((edges, edges, edges))
@@ -143,22 +134,13 @@ class line_finder:
 
 
 def main():
-    # test_images = os.listdir("copy/")
     test_images = os.listdir("test_images/")
-    print(test_images)
     for i, x in enumerate(test_images):
-        # image_input = mpimg.imread("test_images/"+x)
-        image_input = cv2.imread("test_images/"+x)
+        image_input = cv2.cvtColor(cv2.imread("test_images/"+x), cv2.COLOR_BGR2RGB)
         image_processing = line_finder()
         image_output = image_processing.traffic_line(image_input)
         plt.subplot(3, 3, i+1)
         plt.imshow(image_output, aspect='auto')
-
-    # image_input = cv2.imread("test_images/"+"challenge.png")
-    # image_processing = line_finder()
-    # image_output = image_processing.traffic_line(image_input)
-    # plt.imshow(image_output, aspect='auto')
-
     plt.show()
 
 
